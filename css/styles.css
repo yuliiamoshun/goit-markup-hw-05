@@ -30,9 +30,11 @@
   color: inherit;
   text-decoration: none;
   display: block;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
+  padding-top: 80px;
   font-family: var(--main-font);
   font-style: normal;
   font-weight: normal;
@@ -48,11 +50,22 @@ ul {
   margin: 0px;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 /* index.html */
 
 /* HEADER STYLES*/
 
 .header {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  top: 0;
+  left: 0;
   border: 1px solid #ececec;
   justify-content: center;
 
@@ -62,7 +75,6 @@ ul {
   font-size: 14px;
   line-height: 1.142;
   letter-spacing: 0.02em;
-  height: 80px;
 }
 
 .nav-list {
@@ -121,6 +133,42 @@ ul {
   color: var(--accent-color);
   text-decoration: none;
 }
+.navigation-link {
+  position: relative;
+}
+
+.navigation-link::after {
+  position: absolute;
+  content: "";
+
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+
+  transform: scale(0);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navigation-link:hover::after,
+.navigation-link:focus::after,
+.active::after {
+  position: absolute;
+  content: "";
+
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+
+  transform: scale(1);
+}
 
 .logo-studio {
   color: var(--black-color);
@@ -160,7 +208,6 @@ ul {
   padding-top: 200px;
   padding-bottom: 200px;
   text-align: center;
-  position: ;
 }
 
 .main-section-header h1 {
@@ -186,12 +233,76 @@ ul {
   line-height: 1.875;
   cursor: pointer;
   border: none;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .main-section-header button:hover,
 .main-section-header button:active {
   background-color: #188ce8;
 }
+
+.backdrop {
+  z-index: 3;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  min-width: 528px;
+  min-height: 581px;
+
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+.close-modal {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  background-color: var(--white);
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.close-modal:hover {
+  fill: var(--accent-color);
+}
+
+/* <!-- Премущества компании --> */
 
 .main-section-benefits {
   background-color: var(--white-color);
@@ -242,6 +353,8 @@ ul {
   border-radius: 4px;
 }
 
+/* <!-- Чем занимается компания--> */
+
 .main-section-work {
   padding-top: 0px;
   padding-bottom: 94px;
@@ -258,6 +371,40 @@ ul {
 .main-section-work .item + .item {
   margin-left: 30px;
 }
+
+.thumb {
+  position: relative;
+  cursor: pointer;
+}
+
+.thumb .label {
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+
+  padding: 27px 0;
+  width: 370px;
+  height: 70px;
+
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.142;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--white-color);
+  background: rgba(47, 48, 58, 0.8);
+
+  transition: 250ms;
+}
+
+.thumb:hover .label {
+  opacity: 1;
+}
+
+/* <!-- Команда --> */
 
 .main-section-team {
   background: var(--background-light-grey-color);
@@ -331,6 +478,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .socialmedia:hover,
@@ -345,12 +493,15 @@ ul {
 
 .socialmedia .icon {
   fill: var(--grey-icon-color);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .socialmedia:hover .icon,
 .socialmedia:active .icon {
   fill: var(--white-color);
 }
+
+/* <!-- Постоянные клиенты --> */
 
 .main-section-clients {
   padding-top: 94px;
@@ -383,10 +534,12 @@ ul {
   border: 1px solid #afb1b8;
   box-sizing: border-box;
   border-radius: 4px;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .client-link .icon {
   fill: var(--grey-icon-color);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .client-link:hover,
@@ -477,10 +630,12 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .socialmedia-footer:hover,
-.socialmedia-footer:active {
+.socialmedia-footer:focus {
   width: 44px;
   height: 44px;
   background-color: var(--accent-color);
@@ -491,10 +646,11 @@ ul {
 
 .socialmedia-footer .icon {
   fill: var(--white-color);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .socialmedia-footer:hover .icon,
-.socialmedia-footer:active .icon {
+.socialmedia-footer:focus .icon {
   fill: var(--white-color);
 }
 
@@ -509,9 +665,11 @@ ul {
   margin-right: 10px;
 }
 
-/* portfolio.html */
+/* ------------------ portfolio.html --------------------*/
 
-/* MAIN SECTION STYLES */
+/* ----------------MAIN SECTION STYLES ------------------*/
+
+/* <!-- Кнопки - фильтры --> */
 
 .main-section-portfolio {
   padding: 94px 0px;
@@ -546,7 +704,22 @@ ul {
   letter-spacing: 0.03em;
   width: 128px;
   height: 38px;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.portfolio-buttons button:hover,
+.portfolio-buttons button:focus {
+  cursor: pointer;
+  background: var(--accent-color);
+  color: var(--white-color);
+  box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
+    0px 2px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* <!-- Список проектов --> */
 
 .projects-list .list {
   display: flex;
@@ -564,11 +737,49 @@ ul {
   box-sizing: border-box;
 }
 
-.box-portfolio:hover,
-.box-portfolio:active {
+.box-portfolio-link {
+  display: inline-block;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0.2, 1);
+}
+
+.box-portfolio-link:hover,
+.box-portfolio-link:focus {
   cursor: pointer;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.box-portfolio-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.text-overlay {
+  overflow: scroll;
+  position: absolute;
+  display: flex;
+  justify-content: left;
+
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+  padding: 24px;
+  background-color: rgba(33, 150, 243, 0.9);
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color: var(--white-color);
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.box-portfolio-link:hover .text-overlay,
+.box-portfolio-link:focus .text-overlay {
+  transform: translateY(-100%);
 }
 
 .box-portfolio:nth-child(3n) {
@@ -583,7 +794,7 @@ ul {
   padding: 20px 24px;
 }
 
-.box-portfolio h2 {
+.description h2 {
   margin-bottom: 4px;
 
   font-weight: bold;
@@ -592,16 +803,9 @@ ul {
   letter-spacing: 0.06em;
 }
 
-.box-portfolio p {
-  color: var(--aditional-text-color);
+.description p {
   font-size: 16px;
   line-height: 1.875;
   letter-spacing: 0.03em;
-}
-
-.portfolio-buttons button:hover,
-.portfolio-buttons button:active {
-  cursor: pointer;
-  background: var(--accent-color);
-  color: var(--white-color);
+  color: var(--aditional-text-color);
 }
